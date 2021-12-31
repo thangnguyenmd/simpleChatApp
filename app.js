@@ -1,5 +1,5 @@
 const express = require("express");
-const { listen } = require("socket.io");
+const socket = require("socket.io")
 const app = express();
 
 //set the template engine ejs
@@ -19,15 +19,16 @@ app.get("/ping", (req, res) => {
 });
 
 //Listen on port 3000
-server = app.listen(process.env.PORT || 3000);
+server = app.listen(3000);
 console.log("Server listen on port 3000");
 
 //socket.io instantiation
-const io = require("socket.io")(server);
+const io = socket(server);
 
 //listen on every connection
 io.on("connection", (socket) => {
-  console.log("New user connected");
+  var address = socket.request.connection.remoteAddress;
+  console.log('New connection from ' + address.address + ':' + address.port);
 
   //default username
   socket.username = "Anonymous";

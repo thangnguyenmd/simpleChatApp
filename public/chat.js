@@ -1,6 +1,6 @@
 $(function () {
   //make connection
-  var socket = io.connect("https://simple-chat-hust.herokuapp.com");
+  var socket = io.connect("http://14.231.255.163:3000/");
 
   //buttons and inputs
   var message = $("#message");
@@ -17,8 +17,7 @@ $(function () {
 
   //Listen on new_message
   socket.on("new_message", (data) => {
-    feedback.html("");
-    message.val("");
+    message.val("")
     chatroom.append(
       "<p class='message'>" + data.username + ": " + data.message + "</p>"
     );
